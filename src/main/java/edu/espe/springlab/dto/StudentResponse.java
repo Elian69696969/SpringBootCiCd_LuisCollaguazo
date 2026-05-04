@@ -9,6 +9,7 @@ public class StudentResponse {
     private LocalDate birthDate;
     private Boolean active;
 
+    //Getters y setters
     public Long getId() {
         return id;
     }

@@ -33,6 +33,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.BAD_REQUEST.value());
+
         Map<String, String> errors = new HashMap<>();
         for(FieldError field : ex.getBindingResult().getFieldErrors()){
             errors.put(field.getField(), field.getDefaultMessage());

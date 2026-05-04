@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class StudentRequestData {
     @NotBlank @Size(min = 3, max = 120)
     private String fullName;
+
     @NotBlank @Email @Size(max = 120)
     private String email;
 
