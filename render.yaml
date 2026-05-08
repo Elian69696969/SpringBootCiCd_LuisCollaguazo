@@ -1,0 +1,39 @@
+services:
+  # Web Service
+  - type: web
+    name: spring-lab-api
+    env: java
+    plan: free
+    buildCommand: "./gradlew build -x test"
+    startCommand: "java -jar build/libs/*.jar"
+    healthCheckPath: /actuator/health
+    
+    # Variables de entorno para producción
+    envVars:
+      - key: JAVA_VERSION
+        value: 17
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: spring-lab-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: spring-lab-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: spring-lab-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SERVER_PORT
+        value: 8080
+
+  # Base de datos PostgreSQL
+databases:
+  - name: spring-lab-db
+    plan: free
+    databaseName: spring_lab
+    user: springlab_user

@@ -1,0 +1,46 @@
+spring:
+  # Configuración del datasource para producción (Render PostgreSQL)
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  # Configuración de JPA/Hibernate para producción
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Configuración de Jackson
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  # Desactivar DevTools en producción
+  devtools:
+    restart:
+      enabled: false
+
+# Configurar el servidor embebido (Tomcat)
+server:
+  port: ${SERVER_PORT:8080}
+
+# Configuración JWT
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000 # 24 horas en milisegundos
+
+# Actuator para health checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
